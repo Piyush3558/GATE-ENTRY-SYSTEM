@@ -1,0 +1,150 @@
+/* =====================================================
+   APPLICATION ROOT
+===================================================== */
+
+#root {
+    width: 100%;
+    min-height: 100vh;
+
+    margin: 0;
+    padding: 0;
+}
+
+
+.app {
+    width: 100%;
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   GLOBAL CONTROLS
+===================================================== */
+
+button,
+input,
+select,
+textarea {
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+button {
+    -webkit-tap-highlight-color:
+        transparent;
+}
+
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline:
+        3px solid rgba(31, 111, 235, 0.2);
+
+    outline-offset: 2px;
+}
+
+
+/* =====================================================
+   GLOBAL SCROLLBAR
+===================================================== */
+
+* {
+    scrollbar-width: thin;
+
+    scrollbar-color:
+        #c8ced8 transparent;
+}
+
+
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+*::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+
+    border-radius: 10px;
+
+    background:
+        #c8ced8;
+
+    background-clip:
+        padding-box;
+}
+
+
+*::-webkit-scrollbar-thumb:hover {
+    background:
+        #aeb6c2;
+
+    background-clip:
+        padding-box;
+}
+/* =====================================================
+   COMMON PORTAL COMPANY LOGO
+===================================================== */
+
+.portal-company-logo {
+    width: 92px;
+    height: 52px;
+
+    display: block;
+
+    flex: 0 0 92px;
+
+    padding: 3px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e4e7ec;
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    object-fit: contain;
+    object-position: center;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .portal-company-logo {
+        width: 82px;
+        height: 48px;
+
+        flex-basis: 82px;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .portal-company-logo {
+        width: 72px;
+        height: 43px;
+
+        flex-basis: 72px;
+    }
+
+}

@@ -1,0 +1,1429 @@
+/* =====================================================
+   OVERLAY
+===================================================== */
+
+.visitor-form-overlay {
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.45);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    z-index: 9999;
+
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   MODAL
+===================================================== */
+
+.visitor-form-modal {
+    position: relative;
+
+    width: 100%;
+    max-width: 600px;
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background: #ffffff;
+
+    border-radius: 14px;
+
+    box-shadow:
+        0 15px 50px rgba(0, 0, 0, 0.25);
+
+    box-sizing: border-box;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.visitor-form-header {
+    display: flex;
+
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 22px 24px;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    box-sizing: border-box;
+}
+
+
+.visitor-form-header h2 {
+    margin: 0;
+
+    font-size: 21px;
+
+    color: #222;
+}
+
+
+.visitor-form-header p {
+    margin: 5px 0 0;
+
+    color: #777;
+
+    font-size: 13px;
+
+    line-height: 1.4;
+}
+
+
+.close-button {
+    flex-shrink: 0;
+
+    width: 34px;
+    height: 34px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #f1f3f5;
+
+    color: #555;
+
+    font-size: 24px;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    touch-action: manipulation;
+}
+
+
+.close-button:hover {
+    background: #e5e7eb;
+}
+
+
+/* =====================================================
+   FORM
+===================================================== */
+
+.visitor-form {
+    width: 100%;
+
+    padding: 24px;
+
+    box-sizing: border-box;
+}
+
+
+.form-group {
+    width: 100%;
+
+    margin-bottom: 18px;
+
+    box-sizing: border-box;
+}
+
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color: #333;
+}
+
+
+.form-group label span {
+    color: #d92d20;
+
+    margin-left: 3px;
+}
+
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 11px 12px;
+
+    border: 1px solid #d1d5db;
+
+    border-radius: 7px;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    outline: none;
+
+    resize: vertical;
+}
+
+
+.form-group input {
+    min-height: 42px;
+}
+
+
+.form-group textarea {
+    min-height: 90px;
+}
+
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #1f6feb;
+
+    box-shadow:
+        0 0 0 2px rgba(31, 111, 235, 0.08);
+}
+
+
+/* =====================================================
+   MESSAGES
+===================================================== */
+
+.form-error {
+    width: 100%;
+
+    padding: 11px 13px;
+
+    margin-bottom: 18px;
+
+    border-radius: 7px;
+
+    background: #fff0f0;
+
+    color: #b42318;
+
+    font-size: 14px;
+
+    box-sizing: border-box;
+}
+
+
+.form-success {
+    width: 100%;
+
+    padding: 11px 13px;
+
+    margin-bottom: 18px;
+
+    border-radius: 7px;
+
+    background: #ecfdf3;
+
+    color: #027a48;
+
+    font-size: 14px;
+
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   FORM BUTTONS
+===================================================== */
+
+.form-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    padding-top: 8px;
+}
+
+
+.cancel-button,
+.save-button {
+    min-height: 42px;
+
+    padding: 11px 18px;
+
+    border-radius: 7px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    touch-action: manipulation;
+}
+
+
+.cancel-button {
+    border: 1px solid #d1d5db;
+
+    background: #ffffff;
+
+    color: #444;
+}
+
+
+.save-button {
+    border: none;
+
+    background: #1f6feb;
+
+    color: #ffffff;
+}
+
+
+.cancel-button:hover {
+    background: #f8f9fa;
+}
+
+
+.save-button:hover {
+    opacity: 0.9;
+}
+
+
+.save-button:disabled,
+.cancel-button:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   PHOTO SECTION
+===================================================== */
+
+.photo-capture-area {
+    width: 100%;
+
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   CAMERA OPEN BUTTON
+===================================================== */
+
+.camera-button {
+    width: 100%;
+
+    min-height: 140px;
+
+    padding: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    border: 2px dashed #cbd5e1;
+
+    border-radius: 12px;
+
+    background: #f8fafc;
+
+    color: #475569;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-sizing: border-box;
+
+    touch-action: manipulation;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+.camera-button:hover {
+    border-color: #1f6feb;
+
+    background: #f0f6ff;
+
+    color: #1f6feb;
+}
+
+
+.camera-button:active {
+    transform: scale(0.99);
+}
+
+
+.camera-icon {
+    display: block;
+
+    font-size: 38px;
+
+    line-height: 1;
+}
+
+
+/* =====================================================
+   CAMERA CONTAINER
+===================================================== */
+
+.camera-container {
+    width: 100%;
+
+    background: #000000;
+
+    border-radius: 12px;
+
+    overflow: hidden;
+
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   LIVE CAMERA VIDEO
+===================================================== */
+
+.camera-video {
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    min-height: 240px;
+
+    max-height: 450px;
+
+    background: #000000;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    border: none;
+
+    outline: none;
+}
+
+
+/* =====================================================
+   CAMERA ACTIONS
+===================================================== */
+
+.camera-actions {
+    width: 100%;
+
+    display: flex;
+
+    gap: 10px;
+
+    padding: 12px;
+
+    background: #111111;
+
+    box-sizing: border-box;
+}
+
+
+.capture-button {
+    flex: 1;
+
+    min-height: 46px;
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #ffffff;
+
+    color: #111111;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    touch-action: manipulation;
+}
+
+
+.cancel-camera-button {
+    min-height: 46px;
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #555555;
+
+    color: #ffffff;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    touch-action: manipulation;
+}
+
+
+/* =====================================================
+   PHOTO PREVIEW
+===================================================== */
+
+.photo-preview-container {
+    width: 100%;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 15px;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+
+    box-sizing: border-box;
+}
+
+
+.photo-preview {
+    width: 220px;
+
+    height: 220px;
+
+    max-width: 100%;
+
+    object-fit: cover;
+
+    border-radius: 12px;
+
+    border: 2px solid #ddd;
+}
+
+
+.retake-photo-button {
+    min-height: 42px;
+
+    padding: 10px 18px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #333333;
+
+    color: #ffffff;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    touch-action: manipulation;
+}
+
+
+.retake-photo-button:hover {
+    opacity: 0.9;
+}
+
+
+/* =====================================================
+   TABLET
+   601px - 900px
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .visitor-form-overlay {
+        padding: 15px;
+    }
+
+
+    .visitor-form-modal {
+        max-width: 600px;
+
+        max-height: 94vh;
+    }
+
+
+    .visitor-form-header {
+        padding: 20px;
+    }
+
+
+    .visitor-form {
+        padding: 20px;
+    }
+
+
+    .camera-button {
+        min-height: 140px;
+    }
+
+
+    .camera-video {
+        width: 100%;
+
+        min-height: 280px;
+
+        max-height: 420px;
+    }
+
+
+    .camera-actions {
+        padding: 12px;
+    }
+
+
+    .photo-preview {
+        width: 210px;
+
+        height: 210px;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+   600px AND BELOW
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .visitor-form-overlay {
+        padding: 0;
+
+        align-items: flex-end;
+    }
+
+
+    .visitor-form-modal {
+        width: 100%;
+
+        max-width: none;
+
+        max-height: 96vh;
+
+        border-radius:
+            14px 14px 0 0;
+    }
+
+
+    .visitor-form-header {
+        padding: 16px 18px;
+    }
+
+
+    .visitor-form-header h2 {
+        font-size: 19px;
+    }
+
+
+    .visitor-form-header p {
+        font-size: 12px;
+    }
+
+
+    .visitor-form {
+        padding: 18px;
+    }
+
+
+    .form-group {
+        margin-bottom: 16px;
+    }
+
+
+    .form-group label {
+        font-size: 13px;
+    }
+
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 14px;
+    }
+
+
+    /* ================================================
+       CAMERA BUTTON
+    ================================================ */
+
+    .camera-button {
+        min-height: 125px;
+
+        padding: 18px;
+    }
+
+
+    .camera-icon {
+        font-size: 38px;
+    }
+
+
+    /* ================================================
+       CAMERA VIDEO
+    ================================================ */
+
+    .camera-container {
+        width: 100%;
+
+        border-radius: 10px;
+    }
+
+
+    .camera-video {
+        width: 100%;
+
+        min-height: 250px;
+
+        max-height: 360px;
+
+        object-fit: cover;
+    }
+
+
+    /* ================================================
+       CAMERA CONTROLS
+    ================================================ */
+
+    .camera-actions {
+        display: flex;
+
+        flex-direction: column;
+
+        gap: 8px;
+
+        padding: 10px;
+    }
+
+
+    .capture-button,
+    .cancel-camera-button {
+        width: 100%;
+
+        min-height: 46px;
+    }
+
+
+    /* ================================================
+       PHOTO PREVIEW
+    ================================================ */
+
+    .photo-preview {
+        width: 180px;
+
+        height: 180px;
+    }
+
+
+    /* ================================================
+       FORM BUTTONS
+    ================================================ */
+
+    .form-actions {
+        flex-direction: column-reverse;
+
+        gap: 9px;
+    }
+
+
+    .cancel-button,
+    .save-button {
+        width: 100%;
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL PHONES
+===================================================== */
+
+@media (max-width: 380px) {
+
+    .visitor-form {
+        padding: 15px;
+    }
+
+
+    .visitor-form-header {
+        padding: 14px 15px;
+    }
+
+
+    .camera-button {
+        min-height: 110px;
+    }
+
+
+    .camera-video {
+        min-height: 220px;
+
+        max-height: 300px;
+    }
+
+
+    .photo-preview {
+        width: 160px;
+
+        height: 160px;
+    }
+
+}
+
+/* =====================================================
+   DEPARTMENT & EMPLOYEE DROPDOWNS
+===================================================== */
+
+.visitor-form .form-group select {
+    width: 100%;
+    height: 46px;
+
+    padding: 0 42px 0 14px;
+
+    border: 1px solid #d7dce3;
+    border-radius: 8px;
+
+    background-color: #ffffff;
+
+    color: #222;
+
+    font-size: 14px;
+    font-family: inherit;
+
+    outline: none;
+
+    cursor: pointer;
+
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+
+    /* Custom dropdown arrow */
+    background-image:
+        linear-gradient(45deg, transparent 50%, #666 50%),
+        linear-gradient(135deg, #666 50%, transparent 50%);
+
+    background-position:
+        calc(100% - 18px) 20px,
+        calc(100% - 13px) 20px;
+
+    background-size:
+        5px 5px,
+        5px 5px;
+
+    background-repeat: no-repeat;
+}
+
+
+/* =====================================================
+   HOVER
+===================================================== */
+
+.visitor-form .form-group select:hover {
+    border-color: #b8c0cc;
+}
+
+
+/* =====================================================
+   FOCUS
+===================================================== */
+
+.visitor-form .form-group select:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+}
+
+
+/* =====================================================
+   DISABLED
+===================================================== */
+
+.visitor-form .form-group select:disabled {
+    background-color: #f5f6f8;
+
+    color: #8a919c;
+
+    cursor: not-allowed;
+
+    border-color: #e1e4e8;
+
+    opacity: 1;
+}
+
+
+/* =====================================================
+   PLACEHOLDER / FIRST OPTION
+===================================================== */
+
+.visitor-form .form-group select:invalid {
+    color: #8a919c;
+}
+
+
+/* =====================================================
+   OPTIONS
+===================================================== */
+
+.visitor-form .form-group select option {
+    padding: 10px;
+
+    font-size: 14px;
+
+    color: #222;
+
+    background-color: #ffffff;
+}
+
+
+/* =====================================================
+   SELECTED OFFICIAL INFORMATION
+===================================================== */
+
+.selected-official-info {
+    margin-top: 8px;
+
+    padding: 9px 12px;
+
+    border-radius: 6px;
+
+    background: #f5f8ff;
+
+    border: 1px solid #dce6ff;
+
+    color: #596273;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+}
+
+
+.selected-official-info strong {
+    color: #2563eb;
+
+    font-weight: 600;
+}
+
+/* =====================================================
+   MOBILE NUMBER HELP
+===================================================== */
+
+.mobile-number-help {
+    display: block;
+
+    margin-top: 6px;
+
+    color: #667085;
+
+    font-size: 11px;
+    font-weight: 500;
+
+    text-align: right;
+}
+
+
+/* =====================================================
+   TEAM MEMBERS SECTION
+===================================================== */
+
+.team-members-section {
+    padding: 16px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #dbe5f1;
+    border-radius: 11px;
+
+    background: #f8fbff;
+}
+
+
+/* =====================================================
+   TEAM MEMBERS HEADING
+===================================================== */
+
+.team-members-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+
+.team-members-heading > div {
+    min-width: 0;
+}
+
+
+.team-members-heading label {
+    display: block;
+
+    margin: 0;
+
+    color: #101828;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+.team-members-heading p {
+    margin: 5px 0 0;
+
+    color: #667085;
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   ADD MEMBER BUTTON
+===================================================== */
+
+.add-team-member-button {
+    min-height: 36px;
+
+    flex: 0 0 auto;
+
+    padding: 0 14px;
+
+    border: 1px solid #2563eb;
+    border-radius: 7px;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+.add-team-member-button:hover:not(:disabled) {
+    border-color: #1d4ed8;
+
+    background: #1d4ed8;
+
+    transform: translateY(-1px);
+}
+
+
+.add-team-member-button:disabled {
+    opacity: 0.55;
+
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   EMPTY TEAM STATE
+===================================================== */
+
+.team-members-empty {
+    margin-top: 13px;
+    padding: 12px 14px;
+
+    border: 1px dashed #cbd5e1;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #667085;
+
+    font-size: 11px;
+    line-height: 1.5;
+
+    text-align: center;
+}
+
+
+/* =====================================================
+   TEAM MEMBER LIST
+===================================================== */
+
+.team-members-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+
+    margin-top: 14px;
+}
+
+
+/* =====================================================
+   TEAM MEMBER ROW
+===================================================== */
+
+.team-member-row {
+    display: grid;
+
+    grid-template-columns:
+        30px
+        minmax(0, 1fr)
+        auto;
+
+    align-items: center;
+
+    gap: 9px;
+}
+
+
+/* =====================================================
+   TEAM MEMBER NUMBER
+===================================================== */
+
+.team-member-number {
+    width: 30px;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    box-sizing: border-box;
+
+    border-radius: 50%;
+
+    background: #dbeafe;
+    color: #1d4ed8;
+
+    font-size: 11px;
+    font-weight: 800;
+}
+
+
+/* =====================================================
+   TEAM MEMBER INPUT
+===================================================== */
+
+.team-member-row input {
+    width: 100%;
+    height: 39px;
+
+    min-width: 0;
+
+    padding: 0 12px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #d0d5dd;
+    border-radius: 7px;
+
+    background: #ffffff;
+    color: #101828;
+
+    font-family: inherit;
+    font-size: 12px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.team-member-row input::placeholder {
+    color: #98a2b3;
+}
+
+
+.team-member-row input:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+
+.team-member-row input:disabled {
+    background: #f2f4f7;
+    color: #667085;
+
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   REMOVE MEMBER BUTTON
+===================================================== */
+
+.remove-team-member-button {
+    min-height: 36px;
+
+    padding: 0 12px;
+
+    border: 1px solid #fecaca;
+    border-radius: 7px;
+
+    background: #ffffff;
+    color: #d92d20;
+
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+.remove-team-member-button:hover:not(:disabled) {
+    border-color: #f04438;
+
+    background: #fef2f2;
+
+    transform: translateY(-1px);
+}
+
+
+.remove-team-member-button:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   TEAM SIZE INFORMATION
+===================================================== */
+
+.team-size-information {
+    margin-top: 13px;
+    padding: 10px 12px;
+
+    border: 1px solid #bfdbfe;
+    border-radius: 7px;
+
+    background: #eff6ff;
+    color: #475467;
+
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+.team-size-information strong {
+    color: #1d4ed8;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .team-members-section {
+        padding: 14px;
+    }
+
+
+    .team-members-heading {
+        align-items: stretch;
+
+        flex-direction: column;
+    }
+
+
+    .add-team-member-button {
+        width: 100%;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .team-members-section {
+        padding: 12px;
+
+        border-radius: 9px;
+    }
+
+
+    .team-member-row {
+        grid-template-columns:
+            28px
+            minmax(0, 1fr);
+    }
+
+
+    .team-member-number {
+        width: 28px;
+        height: 28px;
+    }
+
+
+    .remove-team-member-button {
+        grid-column: 2;
+
+        width: 100%;
+    }
+
+
+    .team-size-information {
+        text-align: center;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 400px) {
+
+    .team-member-row {
+        grid-template-columns: 1fr;
+
+        padding: 11px;
+
+        border: 1px solid #e4e7ec;
+        border-radius: 8px;
+
+        background: #ffffff;
+    }
+
+
+    .team-member-number {
+        justify-self: start;
+    }
+
+
+    .remove-team-member-button {
+        grid-column: 1;
+    }
+
+}
+/* =====================================================
+   FLIP CAMERA BUTTON
+===================================================== */
+
+.flip-camera-button {
+    min-height: 46px;
+
+    padding: 12px 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    border: 1px solid #475569;
+    border-radius: 8px;
+
+    background: #1e293b;
+    color: #ffffff;
+
+    font-family: inherit;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    touch-action: manipulation;
+
+    -webkit-tap-highlight-color: transparent;
+}
+
+
+.flip-camera-button:hover {
+    background: #334155;
+}
+
+
+.flip-camera-button:active {
+    transform: scale(0.98);
+}
+
+
+.flip-camera-icon {
+    font-size: 19px;
+    line-height: 1;
+}

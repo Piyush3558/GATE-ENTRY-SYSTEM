@@ -1,0 +1,1433 @@
+/* =====================================================
+   ADMIN EMPLOYEE ACCESS PAGE
+===================================================== */
+
+.access-page {
+    min-height: 100vh;
+    background: #f4f7fb;
+    color: #101828;
+    font-family:
+        Inter,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.access-content {
+    width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 28px;
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   PAGE HEADING
+===================================================== */
+
+.access-page-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 22px;
+}
+
+.access-eyebrow {
+    display: block;
+    margin-bottom: 6px;
+    color: #2563eb;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.access-page-heading h1 {
+    margin: 0;
+    color: #101828;
+    font-size: 27px;
+    line-height: 1.2;
+}
+
+.access-page-heading p {
+    margin: 7px 0 0;
+    color: #667085;
+    font-size: 13px;
+}
+
+.access-record-count {
+    min-width: 135px;
+    padding: 13px 17px;
+    box-sizing: border-box;
+    border: 1px solid #dbe5f3;
+    border-radius: 10px;
+    background: white;
+    box-shadow:
+        0 3px 12px rgba(16, 24, 40, 0.04);
+}
+
+.access-record-count span,
+.access-record-count strong {
+    display: block;
+}
+
+.access-record-count span {
+    color: #667085;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.access-record-count strong {
+    margin-top: 3px;
+    color: #1d4ed8;
+    font-size: 23px;
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+.access-error {
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    background: #fef2f2;
+    color: #b42318;
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   FILTER PANEL
+===================================================== */
+
+.access-filter-panel {
+    display: grid;
+    grid-template-columns:
+        minmax(230px, 2fr)
+        repeat(3, minmax(150px, 1fr))
+        auto;
+    align-items: end;
+    gap: 13px;
+    margin-bottom: 20px;
+    padding: 17px;
+    border: 1px solid #e4e7ec;
+    border-radius: 11px;
+    background: white;
+    box-shadow:
+        0 3px 14px rgba(16, 24, 40, 0.035);
+}
+
+.access-filter-field {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.access-filter-field label {
+    color: #475467;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.access-filter-field input,
+.access-filter-field select {
+    width: 100%;
+    height: 39px;
+    padding: 0 11px;
+    box-sizing: border-box;
+    border: 1px solid #d0d5dd;
+    border-radius: 7px;
+    background: white;
+    color: #344054;
+    font: inherit;
+    font-size: 11px;
+    outline: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.access-filter-field input:focus,
+.access-filter-field select:focus {
+    border-color: #2563eb;
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.access-filter-field input::placeholder {
+    color: #98a2b3;
+}
+
+.access-clear-button {
+    min-height: 39px;
+    padding: 0 14px;
+    border: 1px solid #d0d5dd;
+    border-radius: 7px;
+    background: #f8fafc;
+    color: #475467;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.access-clear-button:hover {
+    border-color: #2563eb;
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+
+/* =====================================================
+   EMPLOYEE PANEL
+===================================================== */
+
+.access-employee-panel {
+    overflow: hidden;
+    border: 1px solid #e4e7ec;
+    border-radius: 12px;
+    background: white;
+    box-shadow:
+        0 4px 16px rgba(16, 24, 40, 0.04);
+}
+
+.access-panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 17px 19px;
+    border-bottom: 1px solid #e4e7ec;
+}
+
+.access-panel-heading h2 {
+    margin: 0;
+    color: #101828;
+    font-size: 16px;
+}
+
+.access-panel-heading p {
+    margin: 4px 0 0;
+    color: #667085;
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.access-table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.access-table-container table {
+    width: 100%;
+    min-width: 1180px;
+    border-collapse: collapse;
+}
+
+.access-table-container th,
+.access-table-container td {
+    padding: 13px 14px;
+    box-sizing: border-box;
+    border-bottom: 1px solid #eef1f5;
+    text-align: left;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.access-table-container th {
+    background: #f8fafc;
+    color: #667085;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+}
+
+.access-table-container td {
+    color: #344054;
+    font-size: 11px;
+}
+
+.access-table-container tbody tr {
+    transition: background 0.2s ease;
+}
+
+.access-table-container tbody tr:hover {
+    background: #f9fbff;
+}
+
+.access-table-container tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =====================================================
+   EMPLOYEE CELL
+===================================================== */
+
+.access-employee-cell,
+.access-selected-employee {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.access-employee-avatar {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 35px;
+    border-radius: 9px;
+    background: #eaf2ff;
+    color: #1d4ed8;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.access-employee-cell strong,
+.access-employee-cell span {
+    display: block;
+}
+
+.access-employee-cell strong {
+    max-width: 190px;
+    overflow: hidden;
+    color: #101828;
+    font-size: 11px;
+    text-overflow: ellipsis;
+}
+
+.access-employee-cell span {
+    margin-top: 3px;
+    color: #98a2b3;
+    font-size: 9px;
+}
+
+.access-email-cell {
+    max-width: 230px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =====================================================
+   STATUS BADGES
+===================================================== */
+
+.access-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 65px;
+    padding: 5px 8px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.access-badge.active {
+    background: #ecfdf3;
+    color: #027a48;
+}
+
+.access-badge.inactive {
+    background: #f2f4f7;
+    color: #667085;
+}
+
+.access-badge.created {
+    background: #eff8ff;
+    color: #175cd3;
+}
+
+.access-badge.missing {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+
+/* =====================================================
+   ACTION BUTTON
+===================================================== */
+
+.access-action-button {
+    min-width: 92px;
+    min-height: 33px;
+    padding: 0 11px;
+    border-radius: 7px;
+    font-family: inherit;
+    font-size: 9px;
+    font-weight: 800;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease;
+}
+
+.access-action-button:hover {
+    transform: translateY(-1px);
+}
+
+.access-action-button.create {
+    border: none;
+    background: #2563eb;
+    color: white;
+}
+
+.access-action-button.create:hover {
+    background: #1d4ed8;
+}
+
+.access-action-button.manage {
+    border: 1px solid #bfdbfe;
+    background: #eff6ff;
+    color: #1d4ed8;
+}
+
+.access-action-button.manage:hover {
+    background: #dbeafe;
+}
+
+
+/* =====================================================
+   LOADING AND EMPTY
+===================================================== */
+
+.access-loading,
+.access-empty {
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    color: #667085;
+    text-align: center;
+}
+
+.access-spinner {
+    width: 31px;
+    height: 31px;
+    margin-bottom: 11px;
+    border: 3px solid #dbeafe;
+    border-top-color: #2563eb;
+    border-radius: 50%;
+    animation:
+        access-spin 0.8s linear infinite;
+}
+
+@keyframes access-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.access-loading p,
+.access-empty p {
+    margin: 7px 0 0;
+    font-size: 11px;
+}
+
+.access-empty h3 {
+    margin: 0;
+    color: #344054;
+    font-size: 15px;
+}
+
+
+/* =====================================================
+   PAGINATION
+===================================================== */
+
+.access-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 14px 19px;
+    border-top: 1px solid #e4e7ec;
+    background: #fcfcfd;
+}
+
+.access-pagination > span {
+    color: #667085;
+    font-size: 10px;
+}
+
+.access-pagination > div {
+    display: flex;
+    gap: 7px;
+}
+
+.access-pagination button {
+    min-width: 77px;
+    min-height: 33px;
+    padding: 0 11px;
+    border: 1px solid #d0d5dd;
+    border-radius: 7px;
+    background: white;
+    color: #344054;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.access-pagination button:hover:not(:disabled) {
+    border-color: #2563eb;
+    color: #1d4ed8;
+}
+
+.access-pagination button:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   CREATE LOGIN MODAL
+===================================================== */
+
+.access-modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    background: rgba(15, 23, 42, 0.62);
+    backdrop-filter: blur(4px);
+}
+
+.access-account-modal {
+    width: 100%;
+    max-width: 470px;
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    box-sizing: border-box;
+    border: 1px solid #e4e7ec;
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow:
+        0 28px 70px rgba(15, 23, 42, 0.28);
+    animation:
+        access-modal-open 0.2s ease;
+}
+
+@keyframes access-modal-open {
+    from {
+        opacity: 0;
+        transform:
+            translateY(10px)
+            scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+
+/* =====================================================
+   MODAL HEADER
+===================================================== */
+
+.access-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 22px;
+    border-bottom: 1px solid #e4e7ec;
+    background:
+        linear-gradient(
+            135deg,
+            #f8fbff,
+            #ffffff
+        );
+}
+
+.access-modal-header span {
+    display: block;
+    margin-bottom: 5px;
+    color: #2563eb;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.access-modal-header h2 {
+    margin: 0;
+    color: #101828;
+    font-size: 19px;
+}
+
+.access-modal-header > button {
+    width: 33px;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 33px;
+    padding: 0;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+    background: white;
+    color: #667085;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+}
+
+.access-modal-header > button:hover:not(:disabled) {
+    border-color: #f04438;
+    background: #fef3f2;
+    color: #d92d20;
+}
+
+.access-modal-header > button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   SELECTED EMPLOYEE
+===================================================== */
+
+.access-selected-employee {
+    margin: 18px 22px 0;
+    padding: 13px;
+    border: 1px solid #dbeafe;
+    border-radius: 10px;
+    background: #f8fbff;
+}
+
+.access-selected-employee strong,
+.access-selected-employee span,
+.access-selected-employee small {
+    display: block;
+}
+
+.access-selected-employee strong {
+    color: #101828;
+    font-size: 12px;
+}
+
+.access-selected-employee span {
+    margin-top: 3px;
+    color: #667085;
+    font-size: 10px;
+}
+
+.access-selected-employee small {
+    margin-top: 3px;
+    color: #2563eb;
+    font-size: 10px;
+    overflow-wrap: anywhere;
+}
+
+
+/* =====================================================
+   MODAL ERROR
+===================================================== */
+
+.access-modal-error {
+    margin: 15px 22px 0;
+    padding: 11px 13px;
+    border: 1px solid #fecaca;
+    border-radius: 8px;
+    background: #fef2f2;
+    color: #b42318;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   MODAL FORM
+===================================================== */
+
+.access-account-modal form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 18px 22px 22px;
+}
+
+.access-modal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.access-modal-field label {
+    color: #344054;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.access-modal-field input {
+    width: 100%;
+    height: 41px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+    background: white;
+    color: #101828;
+    font: inherit;
+    font-size: 11px;
+    outline: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.access-modal-field input:focus {
+    border-color: #2563eb;
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.11);
+}
+
+.access-modal-field input:disabled {
+    background: #f2f4f7;
+    color: #667085;
+    cursor: not-allowed;
+}
+
+.access-show-password {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #475467;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.access-show-password input {
+    width: 15px;
+    height: 15px;
+    accent-color: #2563eb;
+}
+
+.access-password-rules {
+    padding: 11px 13px;
+    border: 1px solid #e4e7ec;
+    border-radius: 8px;
+    background: #f8fafc;
+    color: #667085;
+    font-size: 10px;
+    line-height: 1.55;
+}
+
+
+/* =====================================================
+   MODAL ACTIONS
+===================================================== */
+
+.access-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 9px;
+    margin-top: 3px;
+}
+
+.access-modal-actions button {
+    min-width: 105px;
+    min-height: 39px;
+    padding: 0 15px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.access-modal-actions button.cancel {
+    border: 1px solid #d0d5dd;
+    background: white;
+    color: #475467;
+}
+
+.access-modal-actions button.cancel:hover:not(:disabled) {
+    background: #f8fafc;
+}
+
+.access-modal-actions button.submit {
+    border: none;
+    background: #2563eb;
+    color: white;
+}
+
+.access-modal-actions button.submit:hover:not(:disabled) {
+    background: #1d4ed8;
+}
+
+.access-modal-actions button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1050px) {
+
+    .access-filter-panel {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .access-search-field {
+        grid-column: 1 / -1;
+    }
+
+    .access-clear-button {
+        width: 100%;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .access-content {
+        padding: 70px 12px 18px;
+    }
+
+    .access-page-heading {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .access-page-heading h1 {
+        font-size: 23px;
+    }
+
+    .access-record-count {
+        width: 100%;
+    }
+
+    .access-filter-panel {
+        grid-template-columns: 1fr;
+        padding: 14px;
+    }
+
+    .access-search-field {
+        grid-column: auto;
+    }
+
+    .access-table-container {
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .access-table-container table,
+    .access-table-container thead,
+    .access-table-container tbody {
+        display: block;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .access-table-container thead {
+        display: none;
+    }
+
+    .access-table-container tbody tr {
+        display: grid;
+        grid-template-columns: 1fr;
+        margin-bottom: 11px;
+        overflow: hidden;
+        border: 1px solid #e4e7ec;
+        border-radius: 10px;
+        background: white;
+        box-shadow:
+            0 2px 8px rgba(16, 24, 40, 0.04);
+    }
+
+    .access-table-container tbody td {
+        display: grid;
+        grid-template-columns:
+            115px minmax(0, 1fr);
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+        padding: 10px 12px;
+        border-bottom: 1px solid #eef1f5;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .access-table-container tbody td::before {
+        color: #667085;
+        font-size: 9px;
+        font-weight: 800;
+        text-transform: uppercase;
+    }
+
+    .access-table-container tbody td:nth-child(1)::before {
+        content: "Employee";
+    }
+
+    .access-table-container tbody td:nth-child(2)::before {
+        content: "Employee Code";
+    }
+
+    .access-table-container tbody td:nth-child(3)::before {
+        content: "Department";
+    }
+
+    .access-table-container tbody td:nth-child(4)::before {
+        content: "Email / Login";
+    }
+
+    .access-table-container tbody td:nth-child(5)::before {
+        content: "Unit";
+    }
+
+    .access-table-container tbody td:nth-child(6)::before {
+        content: "Employee Status";
+    }
+
+    .access-table-container tbody td:nth-child(7)::before {
+        content: "Login Account";
+    }
+
+    .access-table-container tbody td:nth-child(8)::before {
+        content: "Account Status";
+    }
+
+    .access-table-container tbody td:nth-child(9)::before {
+        content: "Actions";
+    }
+
+    .access-email-cell {
+        max-width: none;
+    }
+
+    .access-action-button {
+        width: 100%;
+    }
+
+    .access-pagination {
+        align-items: stretch;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .access-pagination > div {
+        width: 100%;
+    }
+
+    .access-pagination button {
+        flex: 1;
+    }
+
+}
+
+
+/* =====================================================
+   MODAL MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .access-modal-overlay {
+        align-items: flex-end;
+        padding: 10px;
+    }
+
+    .access-account-modal {
+        max-height: calc(100vh - 20px);
+        border-radius: 14px 14px 10px 10px;
+    }
+
+    .access-modal-header {
+        padding: 17px;
+    }
+
+    .access-modal-header h2 {
+        font-size: 17px;
+    }
+
+    .access-selected-employee {
+        margin: 15px 15px 0;
+    }
+
+    .access-modal-error {
+        margin: 13px 15px 0;
+    }
+
+    .access-account-modal form {
+        padding: 16px 15px 18px;
+    }
+
+    .access-modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .access-modal-actions button {
+        width: 100%;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 420px) {
+
+    .access-table-container tbody td {
+        grid-template-columns:
+            96px minmax(0, 1fr);
+
+        padding: 9px 10px;
+    }
+
+}
+
+/* =====================================================
+   MANAGE ACCOUNT MODAL
+===================================================== */
+
+.access-manage-modal {
+    max-width: 610px;
+}
+
+
+/* =====================================================
+   ACCOUNT INFORMATION
+===================================================== */
+
+.access-manage-information {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+
+    margin: 16px 22px 0;
+}
+
+
+.access-manage-information > div {
+    min-width: 0;
+
+    padding: 11px 12px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #e4e7ec;
+    border-radius: 8px;
+
+    background: #f8fafc;
+}
+
+
+.access-manage-information span,
+.access-manage-information strong {
+    display: block;
+}
+
+
+.access-manage-information span {
+    margin-bottom: 5px;
+
+    color: #667085;
+
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
+}
+
+
+.access-manage-information strong {
+    overflow-wrap: anywhere;
+
+    color: #344054;
+
+    font-size: 10px;
+    line-height: 1.45;
+}
+
+
+/* =====================================================
+   ACCOUNT STATUS
+===================================================== */
+
+.manage-status {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+
+    width: fit-content;
+    min-width: 58px;
+
+    padding: 4px 8px;
+
+    border-radius: 20px;
+
+    font-size: 9px !important;
+    font-weight: 800;
+}
+
+
+.manage-status.active {
+    background: #ecfdf3;
+    color: #027a48;
+}
+
+
+.manage-status.inactive {
+    background: #f2f4f7;
+    color: #667085;
+}
+
+
+/* =====================================================
+   ACCOUNT MANAGEMENT ACTIONS
+===================================================== */
+
+.access-manage-actions {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+
+    margin: 16px 22px 0;
+}
+
+
+.access-manage-actions button {
+    min-height: 39px;
+
+    padding: 0 14px;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+
+.access-manage-actions button:hover:not(:disabled) {
+    transform: translateY(-1px);
+}
+
+
+.access-manage-actions button.activate {
+    border: 1px solid #86efac;
+
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+
+.access-manage-actions button.activate:hover:not(:disabled) {
+    border-color: #22c55e;
+
+    background: #dcfce7;
+}
+
+
+.access-manage-actions button.deactivate {
+    border: 1px solid #fecaca;
+
+    background: #fef2f2;
+    color: #b42318;
+}
+
+
+.access-manage-actions button.deactivate:hover:not(:disabled) {
+    border-color: #f87171;
+
+    background: #fee2e2;
+}
+
+
+.access-manage-actions button.unlock {
+    border: 1px solid #fde68a;
+
+    background: #fffbeb;
+    color: #b45309;
+}
+
+
+.access-manage-actions button.unlock:hover:not(:disabled) {
+    border-color: #f59e0b;
+
+    background: #fef3c7;
+}
+
+
+.access-manage-actions button:disabled {
+    opacity: 0.45;
+
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   RESET PASSWORD FORM
+===================================================== */
+
+.access-reset-form {
+    margin-top: 18px;
+
+    border-top: 1px solid #e4e7ec;
+
+    background: #ffffff;
+}
+
+
+.access-reset-heading {
+    padding-bottom: 2px;
+}
+
+
+.access-reset-heading h3 {
+    margin: 0;
+
+    color: #101828;
+
+    font-size: 14px;
+}
+
+
+.access-reset-heading p {
+    margin: 5px 0 0;
+
+    color: #667085;
+
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   MANAGE MODAL MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .access-manage-information {
+        grid-template-columns: 1fr;
+
+        margin:
+            14px
+            15px
+            0;
+    }
+
+
+    .access-manage-actions {
+        grid-template-columns: 1fr;
+
+        margin:
+            14px
+            15px
+            0;
+    }
+
+
+    .access-manage-actions button {
+        width: 100%;
+    }
+
+}
+/* =====================================================
+   HEADING ACTIONS
+===================================================== */
+
+.access-heading-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+/* =====================================================
+   ADD EMPLOYEE BUTTON
+===================================================== */
+
+.access-add-employee-button {
+    min-height: 48px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 18px;
+
+    border: none;
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2563eb,
+            #1d4ed8
+        );
+
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 7px 16px rgba(37, 99, 235, 0.2);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.access-add-employee-button:hover {
+    transform: translateY(-1px);
+
+    background:
+        linear-gradient(
+            135deg,
+            #1d4ed8,
+            #1e40af
+        );
+
+    box-shadow:
+        0 10px 20px rgba(37, 99, 235, 0.26);
+}
+
+
+.access-add-employee-button:active {
+    transform: translateY(0);
+}
+
+
+.access-add-employee-button:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.2);
+    outline-offset: 2px;
+}
+
+
+/* =====================================================
+   ADD EMPLOYEE FORM SELECT
+===================================================== */
+
+.access-modal-field select {
+    width: 100%;
+    height: 41px;
+
+    padding: 0 12px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #101828;
+
+    font-family: inherit;
+    font-size: 11px;
+
+    outline: none;
+
+    cursor: pointer;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.access-modal-field select:focus {
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.11);
+}
+
+
+.access-modal-field select:disabled {
+    background: #f2f4f7;
+    color: #667085;
+
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   TABLET / MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+
+    .access-heading-actions {
+        width: 100%;
+
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+
+    .access-add-employee-button {
+        width: 100%;
+
+        min-height: 43px;
+    }
+
+}
