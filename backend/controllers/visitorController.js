@@ -70,9 +70,10 @@ const visitorSelect = `
 ) AS group_member_count,
 
         e.employee_name AS official_name,
-        e.employee_code AS official_code,
+e.employee_code AS official_code,
 
-        d.department_name
+d.id AS department_id,
+d.department_name
 
     FROM visitor_entries ve
 
@@ -1254,7 +1255,727 @@ const checkoutVisitor = async (req, res) => {
 
 };
 
+// =====================================================
+// UPDATE VISITOR
+// SECURITY CORRECTION BEFORE CHECK-IN
+// PUT /api/visitors/:id
+// =====================================================
 
+const updateVisitor = async (req, res) => {
+
+    let client;
+
+    try {
+
+        const { id } = req.params;
+
+        const {
+            visitor_name,
+            address,
+            mobile_number,
+            purpose_of_visit,
+            official_employee_id,
+            group_members
+        } = req.body;
+
+
+        // =====================================================
+        // VISITOR ID VALIDATION
+        // =====================================================
+
+        const visitorId = Number(id);
+
+        if (
+            !Number.isInteger(visitorId) ||
+            visitorId <= 0
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message: "Invalid visitor ID."
+            });
+
+        }
+
+
+        // =====================================================
+        // PRIMARY VISITOR VALIDATION
+        // =====================================================
+
+        if (
+            !visitor_name ||
+            !visitor_name.trim()
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message: "Visitor name is required."
+            });
+
+        }
+
+
+        if (
+            visitor_name.trim().length > 150
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Visitor name cannot exceed 150 characters."
+            });
+
+        }
+
+
+        const cleanedMobileNumber =
+            String(
+                mobile_number || ""
+            ).trim();
+
+
+        if (
+            !/^\d{10}$/.test(
+                cleanedMobileNumber
+            )
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Mobile number must contain exactly 10 digits."
+            });
+
+        }
+
+
+        if (
+            !purpose_of_visit ||
+            !purpose_of_visit.trim()
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Purpose of visit is required."
+            });
+
+        }
+
+
+        const parsedEmployeeId =
+            Number(
+                official_employee_id
+            );
+
+
+        if (
+            !Number.isInteger(
+                parsedEmployeeId
+            ) ||
+            parsedEmployeeId <= 0
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "A valid official employee is required."
+            });
+
+        }
+
+
+        // =====================================================
+        // PARSE TEAM MEMBERS
+        // =====================================================
+
+        let parsedGroupMembers = [];
+
+
+        if (
+            group_members !== undefined &&
+            group_members !== null &&
+            group_members !== ""
+        ) {
+
+            try {
+
+                parsedGroupMembers =
+                    Array.isArray(group_members)
+                        ? group_members
+                        : JSON.parse(
+                            group_members
+                        );
+
+            }
+
+            catch (parseError) {
+
+                return res.status(400).json({
+                    success: false,
+                    message:
+                        "Team-member information is invalid."
+                });
+
+            }
+
+        }
+
+
+        if (
+            !Array.isArray(
+                parsedGroupMembers
+            )
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Team members must be provided as a list."
+            });
+
+        }
+
+
+        if (
+            parsedGroupMembers.length > 20
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "A maximum of 20 accompanying members can be added."
+            });
+
+        }
+
+
+        const cleanedGroupMembers =
+            parsedGroupMembers.map(
+                member => {
+
+                    if (
+                        typeof member === "string"
+                    ) {
+
+                        return member.trim();
+
+                    }
+
+
+                    if (
+                        member &&
+                        typeof member.member_name ===
+                            "string"
+                    ) {
+
+                        return member
+                            .member_name
+                            .trim();
+
+                    }
+
+
+                    return "";
+
+                }
+            );
+
+
+        if (
+            cleanedGroupMembers.some(
+                memberName =>
+                    !memberName
+            )
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Every accompanying team member must have a name."
+            });
+
+        }
+
+
+        if (
+            cleanedGroupMembers.some(
+                memberName =>
+                    memberName.length > 150
+            )
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "A team-member name cannot exceed 150 characters."
+            });
+
+        }
+
+
+        const normalizedGroupMembers =
+            cleanedGroupMembers.map(
+                memberName =>
+                    memberName.toLowerCase()
+            );
+
+
+        if (
+            new Set(
+                normalizedGroupMembers
+            ).size !==
+            normalizedGroupMembers.length
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "The same team member cannot be added more than once."
+            });
+
+        }
+
+
+        if (
+            normalizedGroupMembers.includes(
+                visitor_name
+                    .trim()
+                    .toLowerCase()
+            )
+        ) {
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "The primary visitor cannot also be added as an accompanying member."
+            });
+
+        }
+
+
+        // =====================================================
+        // START TRANSACTION
+        // =====================================================
+
+        client =
+            await pool.connect();
+
+
+        await client.query(
+            "BEGIN"
+        );
+
+
+        // =====================================================
+        // LOAD CURRENT VISITOR
+        // =====================================================
+
+        const currentVisitorResult =
+            await client.query(
+                `
+                    SELECT
+                        id,
+                        official_employee_id,
+                        approval_status,
+                        entry_status,
+                        time_in,
+                        time_out,
+                        photo_path
+                    FROM visitor_entries
+                    WHERE id = $1
+                    FOR UPDATE
+                `,
+                [
+                    visitorId
+                ]
+            );
+
+
+        if (
+            currentVisitorResult.rows.length === 0
+        ) {
+
+            await client.query(
+                "ROLLBACK"
+            );
+
+
+            return res.status(404).json({
+                success: false,
+                message:
+                    "Visitor entry not found."
+            });
+
+        }
+
+
+        const currentVisitor =
+            currentVisitorResult.rows[0];
+
+
+        // =====================================================
+        // SECURITY EDIT PROTECTION
+        // DO NOT EDIT AFTER CHECK-IN / CHECKOUT
+        // =====================================================
+
+        if (
+            currentVisitor.entry_status ===
+                "INSIDE" ||
+            currentVisitor.entry_status ===
+                "CHECKED_OUT" ||
+            currentVisitor.time_in !== null ||
+            currentVisitor.time_out !== null
+        ) {
+
+            await client.query(
+                "ROLLBACK"
+            );
+
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Visitor details cannot be edited after check-in."
+            });
+
+        }
+
+
+        // =====================================================
+        // VERIFY SELECTED OFFICIAL
+        // =====================================================
+
+        const employeeResult =
+            await client.query(
+                `
+                    SELECT
+                        id,
+                        employee_name,
+                        email,
+                        is_active
+                    FROM employees
+                    WHERE id = $1
+                    LIMIT 1
+                `,
+                [
+                    parsedEmployeeId
+                ]
+            );
+
+
+        if (
+            employeeResult.rows.length === 0
+        ) {
+
+            await client.query(
+                "ROLLBACK"
+            );
+
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "Selected employee was not found."
+            });
+
+        }
+
+
+        const employee =
+            employeeResult.rows[0];
+
+
+        if (
+            employee.is_active === false
+        ) {
+
+            await client.query(
+                "ROLLBACK"
+            );
+
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "The selected official is inactive."
+            });
+
+        }
+
+
+        if (
+            !employee.email ||
+            !employee.email.trim() ||
+            employee.email.trim() === "-"
+        ) {
+
+            await client.query(
+                "ROLLBACK"
+            );
+
+
+            return res.status(400).json({
+                success: false,
+                message:
+                    "The selected official does not have a valid email address."
+            });
+
+        }
+
+
+        // =====================================================
+        // CHECK WHETHER OFFICIAL CHANGED
+        // =====================================================
+
+        const officialChanged =
+            Number(
+                currentVisitor.official_employee_id
+            ) !==
+            Number(
+                employee.id
+            );
+
+
+        // =====================================================
+        // OPTIONAL NEW PHOTO
+        // =====================================================
+
+        const photoPath =
+            req.file
+                ? `/uploads/visitors/${req.file.filename}`
+                : currentVisitor.photo_path;
+
+
+        // =====================================================
+        // UPDATE VISITOR
+        //
+        // IMPORTANT:
+        // Security cannot directly provide:
+        // approval_status
+        // approval_time
+        // rejection_reason
+        // entry_status
+        // time_in
+        // time_out
+        //
+        // If official changes, approval is reset.
+        // =====================================================
+
+        await client.query(
+            `
+                UPDATE visitor_entries
+
+                SET
+                    visitor_name = $1,
+                    address = $2,
+                    mobile_number = $3,
+                    purpose_of_visit = $4,
+
+                    official_to_visit = $5,
+                    official_employee_id = $6,
+                    official_email = $7,
+
+                    photo_path = $8,
+
+                    approval_status =
+                        CASE
+                            WHEN $9 = TRUE
+                            THEN 'PENDING'
+                            ELSE approval_status
+                        END,
+
+                    approval_time =
+                        CASE
+                            WHEN $9 = TRUE
+                            THEN NULL
+                            ELSE approval_time
+                        END,
+
+                    rejection_reason =
+                        CASE
+                            WHEN $9 = TRUE
+                            THEN NULL
+                            ELSE rejection_reason
+                        END,
+
+                    entry_status =
+                        CASE
+                            WHEN $9 = TRUE
+                            THEN 'WAITING'
+                            ELSE entry_status
+                        END
+
+                WHERE id = $10
+            `,
+            [
+                visitor_name.trim(),
+
+                address &&
+                address.trim()
+                    ? address.trim()
+                    : null,
+
+                cleanedMobileNumber,
+
+                purpose_of_visit.trim(),
+
+                employee.employee_name,
+
+                employee.id,
+
+                employee.email.trim(),
+
+                photoPath,
+
+                officialChanged,
+
+                visitorId
+            ]
+        );
+
+
+        // =====================================================
+        // REPLACE GROUP MEMBERS
+        // =====================================================
+
+        await client.query(
+            `
+                DELETE FROM visitor_group_members
+                WHERE visitor_entry_id = $1
+            `,
+            [
+                visitorId
+            ]
+        );
+
+
+        for (
+            const memberName
+            of cleanedGroupMembers
+        ) {
+
+            await client.query(
+                `
+                    INSERT INTO visitor_group_members
+                    (
+                        visitor_entry_id,
+                        member_name
+                    )
+                    VALUES
+                    (
+                        $1,
+                        $2
+                    )
+                `,
+                [
+                    visitorId,
+                    memberName
+                ]
+            );
+
+        }
+
+
+        // =====================================================
+        // COMMIT
+        // =====================================================
+
+        await client.query(
+            "COMMIT"
+        );
+
+
+        // =====================================================
+        // RETURN UPDATED VISITOR
+        // =====================================================
+
+        const updatedVisitorResult =
+            await pool.query(
+                `
+                    ${visitorSelect}
+                    WHERE ve.id = $1
+                `,
+                [
+                    visitorId
+                ]
+            );
+
+
+        return res.status(200).json({
+
+            success: true,
+
+            official_changed:
+                officialChanged,
+
+            message:
+                officialChanged
+                    ? "Visitor updated successfully. Approval has been reset to Pending for the new official."
+                    : "Visitor details updated successfully.",
+
+            visitor:
+                updatedVisitorResult.rows[0]
+
+        });
+
+    }
+
+    catch (error) {
+
+        if (client) {
+
+            try {
+
+                await client.query(
+                    "ROLLBACK"
+                );
+
+            }
+
+            catch (rollbackError) {
+
+                console.error(
+                    "Update visitor rollback error:",
+                    rollbackError
+                );
+
+            }
+
+        }
+
+
+        console.error(
+            "Update visitor error:",
+            error
+        );
+
+
+        return res.status(500).json({
+
+            success: false,
+
+            message:
+                "Failed to update visitor details.",
+
+            error:
+                error.message
+
+        });
+
+    }
+
+    finally {
+
+        if (client) {
+
+            client.release();
+
+        }
+
+    }
+
+};
 // =====================================================
 // EXPORTS
 // =====================================================
@@ -1266,6 +1987,8 @@ module.exports = {
     getAllVisitors,
 
     getVisitorById,
+
+    updateVisitor,
 
     checkInVisitor,
 

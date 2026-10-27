@@ -11,8 +11,11 @@ import "./VisitorForm.css";
 
 function VisitorForm({
     onClose,
-    onSaved
+    onSaved,
+    visitor = null
 }) {
+
+    const isEditMode = Boolean(visitor?.id);
 
     // =====================================================
     // FORM DATA
@@ -111,6 +114,94 @@ function VisitorForm({
 
     const canvasRef =
         useRef(null);
+
+
+    // =====================================================
+    // PHOTO URL
+    // =====================================================
+
+    const getPhotoUrl = (photoPath) => {
+        if (!photoPath) {
+            return "";
+        }
+
+        if (
+            photoPath.startsWith("http://") ||
+            photoPath.startsWith("https://")
+        ) {
+            return photoPath;
+        }
+
+        let baseURL = api.defaults?.baseURL || "";
+        baseURL = baseURL.replace(/\/api\/?$/, "");
+        baseURL = baseURL.replace(/\/$/, "");
+
+        const normalizedPath =
+            photoPath.startsWith("/")
+                ? photoPath
+                : `/${photoPath}`;
+
+        return `${baseURL}${normalizedPath}`;
+    };
+
+
+    // =====================================================
+    // LOAD EXISTING VISITOR IN EDIT MODE
+    // =====================================================
+
+    useEffect(() => {
+        if (!isEditMode) {
+            return;
+        }
+
+        setFormData({
+            visitor_name: visitor.visitor_name || "",
+            address: visitor.address || "",
+            mobile_number: visitor.mobile_number || "",
+            purpose_of_visit: visitor.purpose_of_visit || "",
+            official_to_visit:
+                visitor.official_to_visit ||
+                visitor.official_name ||
+                "",
+            official_email: visitor.official_email || ""
+        });
+
+        setGroupMembers(
+            Array.isArray(visitor.group_members)
+                ? visitor.group_members.map((member, index) => ({
+                    id:
+                        member?.id ||
+                        `existing-${index}-${Date.now()}`,
+                    member_name:
+                        typeof member === "string"
+                            ? member
+                            : member?.member_name || ""
+                }))
+                : []
+        );
+
+        setSelectedDepartment(
+            visitor.department_id
+                ? String(visitor.department_id)
+                : ""
+        );
+
+        setSelectedEmployee(
+            visitor.official_employee_id
+                ? String(visitor.official_employee_id)
+                : ""
+        );
+
+        setPhoto(null);
+        setPhotoPreview(
+            visitor.photo_path
+                ? getPhotoUrl(visitor.photo_path)
+                : ""
+        );
+
+        setError("");
+        setSuccess("");
+    }, [visitor, isEditMode]);
 
 
     // =====================================================
@@ -228,10 +319,48 @@ function VisitorForm({
                         response.data.success
                     ) {
 
-                        setEmployees(
+                        const loadedEmployees =
                             response.data.employees ||
-                            []
+                            [];
+
+                        setEmployees(
+                            loadedEmployees
                         );
+
+                        const editingOriginalDepartment =
+                            isEditMode &&
+                            String(visitor?.department_id || "") ===
+                                String(selectedDepartment);
+
+                        if (editingOriginalDepartment) {
+                            const originalEmployee =
+                                loadedEmployees.find(
+                                    employee =>
+                                        String(employee.id) ===
+                                        String(visitor?.official_employee_id)
+                                );
+
+                            if (originalEmployee) {
+                                setSelectedEmployee(
+                                    String(originalEmployee.id)
+                                );
+
+                                setFormData(previous => ({
+                                    ...previous,
+                                    official_to_visit:
+                                        originalEmployee.employee_name ||
+                                        originalEmployee.name ||
+                                        visitor?.official_to_visit ||
+                                        "",
+                                    official_email:
+                                        originalEmployee.email ||
+                                        originalEmployee.official_email ||
+                                        originalEmployee.employee_email ||
+                                        visitor?.official_email ||
+                                        ""
+                                }));
+                            }
+                        }
 
                     }
 
@@ -261,7 +390,7 @@ function VisitorForm({
 
         loadEmployees();
 
-    }, [selectedDepartment]);
+    }, [selectedDepartment, isEditMode, visitor]);
 
 
     // =====================================================
@@ -1259,10 +1388,15 @@ const flipCamera = async () => {
             // =================================================
 
             const response =
-                await api.post(
-                    "/visitors",
-                    data
-                );
+                isEditMode
+                    ? await api.put(
+                        `/visitors/${visitor.id}`,
+                        data
+                    )
+                    : await api.post(
+                        "/visitors",
+                        data
+                    );
 
 
             if (
@@ -1297,7 +1431,9 @@ const flipCamera = async () => {
         catch (submitError) {
 
             console.error(
-                "Create visitor error:",
+                isEditMode
+                    ? "Update visitor error:"
+                    : "Create visitor error:",
                 submitError
             );
 
@@ -1310,7 +1446,9 @@ const flipCamera = async () => {
 
             setError(
                 submitError.response?.data?.message ||
-                "Failed to create visitor request."
+                (isEditMode
+                    ? "Failed to update visitor details."
+                    : "Failed to create visitor request.")
             );
 
         }
@@ -1341,11 +1479,19 @@ const flipCamera = async () => {
                     <div>
 
                         <h2>
-                            New Visitor Entry
+                            {
+                                isEditMode
+                                    ? "Edit Visitor"
+                                    : "New Visitor Entry"
+                            }
                         </h2>
 
                         <p>
-                            Enter visitor and team details
+                            {
+                                isEditMode
+                                    ? "Correct visitor details before check-in"
+                                    : "Enter visitor and team details"
+                            }
                         </p>
 
                     </div>
@@ -2051,10 +2197,14 @@ const flipCamera = async () => {
 
                             {
                                 saving
-                                    ? "Submitting..."
-                                    : groupMembers.length > 0
-                                        ? `Submit Group Request (${groupMembers.length + 1} Visitors)`
-                                        : "Submit Visitor Request"
+                                    ? isEditMode
+                                        ? "Saving Changes..."
+                                        : "Submitting..."
+                                    : isEditMode
+                                        ? "Save Changes"
+                                        : groupMembers.length > 0
+                                            ? `Submit Group Request (${groupMembers.length + 1} Visitors)`
+                                            : "Submit Visitor Request"
                             }
 
                         </button>

@@ -15,6 +15,8 @@ const {
 
     getVisitorById,
 
+    updateVisitor,
+
     checkInVisitor,
 
     checkoutVisitor
@@ -56,6 +58,17 @@ router.get(
     getAllVisitors
 );
 
+// =====================================================
+// UPDATE VISITOR DETAILS
+// SECURITY CORRECTION BEFORE CHECK-IN
+// PUT /api/visitors/:id
+// =====================================================
+
+router.put(
+    "/:id",
+    upload.single("photo"),
+    updateVisitor
+);
 
 // =====================================================
 // CHECK IN APPROVED VISITOR

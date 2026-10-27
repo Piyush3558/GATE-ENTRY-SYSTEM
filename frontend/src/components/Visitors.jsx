@@ -7,6 +7,7 @@ import {
 import * as XLSX from "xlsx";
 
 import api from "../services/api";
+import VisitorForm from "./VisitorForm";
 
 import "./Visitors.css";
 
@@ -45,6 +46,38 @@ function Visitors() {
 
     const [selectedVisitorId, setSelectedVisitorId] =
         useState(null);
+
+
+    // =====================================================
+    // EDIT VISITOR
+    // =====================================================
+
+    const [editingVisitor, setEditingVisitor] =
+        useState(null);
+
+    const canEditVisitor = (visitor) => {
+        if (!visitor) {
+            return false;
+        }
+
+        return (
+            getEntryStatus(visitor) === "WAITING" &&
+            !visitor.time_in &&
+            !visitor.time_out
+        );
+    };
+
+    const openEditVisitor = (visitor) => {
+        if (!canEditVisitor(visitor)) {
+            return;
+        }
+
+        setEditingVisitor(visitor);
+    };
+
+    const handleVisitorUpdated = async () => {
+        await loadVisitors();
+    };
 
 
     // =====================================================
@@ -1427,6 +1460,7 @@ function Visitors() {
                                             <th>Time In</th>
                                             <th>Time Out</th>
                                             <th>Entry Status</th>
+                                            <th>Actions</th>
 
                                         </tr>
 
@@ -1606,6 +1640,31 @@ function Visitors() {
                                                                 renderEntryStatus(
                                                                     visitor
                                                                 )
+                                                            }
+                                                        </td>
+
+                                                        <td>
+                                                            {
+                                                                canEditVisitor(visitor)
+                                                                    ? (
+                                                                        <button
+                                                                            type="button"
+                                                                            onClick={() =>
+                                                                                openEditVisitor(visitor)
+                                                                            }
+                                                                            style={{
+                                                                                padding: "7px 12px",
+                                                                                border: "1px solid #cbd5e1",
+                                                                                borderRadius: "7px",
+                                                                                background: "#ffffff",
+                                                                                cursor: "pointer",
+                                                                                fontWeight: 600
+                                                                            }}
+                                                                        >
+                                                                            Edit
+                                                                        </button>
+                                                                    )
+                                                                    : "-"
                                                             }
                                                         </td>
 
@@ -1812,19 +1871,46 @@ function Visitors() {
                                         </button>
 
 
-                                        <span
-                                            className={`visitor-list-status ${
-                                                getDisplayStatus(
-                                                    selectedVisitor
-                                                ).className
-                                            }`}
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                                gap: "10px"
+                                            }}
                                         >
-                                            {
-                                                getDisplayStatus(
-                                                    selectedVisitor
-                                                ).label
-                                            }
-                                        </span>
+                                            {canEditVisitor(selectedVisitor) && (
+                                                <button
+                                                    type="button"
+                                                    onClick={() =>
+                                                        openEditVisitor(selectedVisitor)
+                                                    }
+                                                    style={{
+                                                        padding: "7px 12px",
+                                                        border: "1px solid #cbd5e1",
+                                                        borderRadius: "7px",
+                                                        background: "#ffffff",
+                                                        cursor: "pointer",
+                                                        fontWeight: 600
+                                                    }}
+                                                >
+                                                    Edit
+                                                </button>
+                                            )}
+
+                                            <span
+                                                className={`visitor-list-status ${
+                                                    getDisplayStatus(
+                                                        selectedVisitor
+                                                    ).className
+                                                }`}
+                                            >
+                                                {
+                                                    getDisplayStatus(
+                                                        selectedVisitor
+                                                    ).label
+                                                }
+                                            </span>
+                                        </div>
 
                                     </div>
 
@@ -2374,6 +2460,21 @@ function Visitors() {
 
                 </div>
 
+            )}
+
+
+            {/* =================================================
+                EDIT VISITOR FORM
+            ================================================= */}
+
+            {editingVisitor && (
+                <VisitorForm
+                    visitor={editingVisitor}
+                    onClose={() =>
+                        setEditingVisitor(null)
+                    }
+                    onSaved={handleVisitorUpdated}
+                />
             )}
 
 
