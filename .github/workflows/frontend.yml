@@ -62,7 +62,9 @@ jobs:
 
   deploy:
     name: Deploy to Firebase Hosting
-    if: github.event_name == 'push' && vars.FRONTEND_DEPLOY_ENABLED == 'true'
+    if: >-
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+      vars.FRONTEND_DEPLOY_ENABLED == 'true'
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 10

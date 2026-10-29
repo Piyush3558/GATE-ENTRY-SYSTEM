@@ -61,7 +61,9 @@ jobs:
 
   deploy:
     name: Trigger Render deployment
-    if: github.event_name == 'push' && vars.BACKEND_DEPLOY_ENABLED == 'true'
+    if: >-
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+      vars.BACKEND_DEPLOY_ENABLED == 'true'
     needs: validate
     runs-on: ubuntu-latest
     timeout-minutes: 5
