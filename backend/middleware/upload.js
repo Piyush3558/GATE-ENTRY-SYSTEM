@@ -1,68 +1,12 @@
 const multer = require("multer");
-const path = require("path");
-const fs = require("fs");
-
-// =====================================================
-// UPLOAD DIRECTORY
-// =====================================================
-
-const uploadDirectory = path.join(
-    __dirname,
-    "..",
-    "uploads",
-    "visitors"
-);
-
-
-// =====================================================
-// CREATE DIRECTORY IF NOT EXISTS
-// =====================================================
-
-if (!fs.existsSync(uploadDirectory)) {
-
-    fs.mkdirSync(
-        uploadDirectory,
-        {
-            recursive: true
-        }
-    );
-
-}
 
 
 // =====================================================
 // STORAGE
 // =====================================================
 
-const storage = multer.diskStorage({
-
-    destination: function (req, file, cb) {
-
-        cb(
-            null,
-            uploadDirectory
-        );
-
-    },
-
-    filename: function (req, file, cb) {
-
-        const extension =
-            path.extname(
-                file.originalname
-            ).toLowerCase();
-
-        const filename =
-            `visitor_${Date.now()}${extension}`;
-
-        cb(
-            null,
-            filename
-        );
-
-    }
-
-});
+const storage =
+    multer.memoryStorage();
 
 
 // =====================================================

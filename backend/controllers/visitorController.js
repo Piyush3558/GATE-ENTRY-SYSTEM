@@ -1,5 +1,10 @@
 const pool = require("../config/database");
 
+const {
+    uploadVisitorPhoto,
+    deleteVisitorPhoto
+} = require("../config/cloudinary");
+
 
 // =====================================================
 // SHARED VISITOR SELECT
@@ -94,6 +99,8 @@ d.department_name
 const createVisitor = async (req, res) => {
 
     let client;
+
+    let uploadedPhotoPublicId = null;
 
 
     try {
@@ -445,16 +452,6 @@ const createVisitor = async (req, res) => {
 
 
         // =================================================
-        // PHOTO PATH
-        // =================================================
-
-        const photoPath =
-            req.file
-                ? `/uploads/visitors/${req.file.filename}`
-                : null;
-
-
-        // =================================================
         // DATABASE TRANSACTION
         // =================================================
 
@@ -554,6 +551,30 @@ const createVisitor = async (req, res) => {
                     "The selected official does not have a valid email address."
 
             });
+
+        }
+
+
+        // =================================================
+        // UPLOAD PHOTO TO CLOUDINARY
+        // =================================================
+
+        let photoPath = null;
+
+
+        if (req.file) {
+
+            const uploadedPhoto =
+                await uploadVisitorPhoto(
+                    req.file
+                );
+
+
+            photoPath =
+                uploadedPhoto.secureUrl;
+
+            uploadedPhotoPublicId =
+                uploadedPhoto.publicId;
 
         }
 
@@ -670,6 +691,9 @@ const createVisitor = async (req, res) => {
         );
 
 
+        uploadedPhotoPublicId = null;
+
+
         // =================================================
         // RETURN COMPLETE VISITOR
         // =================================================
@@ -719,6 +743,28 @@ const createVisitor = async (req, res) => {
                 console.error(
                     "Visitor transaction rollback error:",
                     rollbackError
+                );
+
+            }
+
+        }
+
+
+        if (uploadedPhotoPublicId) {
+
+            try {
+
+                await deleteVisitorPhoto(
+                    uploadedPhotoPublicId
+                );
+
+            }
+
+            catch (cleanupError) {
+
+                console.error(
+                    "Cloudinary photo cleanup error:",
+                    cleanupError
                 );
 
             }
@@ -1265,6 +1311,8 @@ const updateVisitor = async (req, res) => {
 
     let client;
 
+    let uploadedPhotoPublicId = null;
+
     try {
 
         const { id } = req.params;
@@ -1741,10 +1789,25 @@ const updateVisitor = async (req, res) => {
         // OPTIONAL NEW PHOTO
         // =====================================================
 
-        const photoPath =
-            req.file
-                ? `/uploads/visitors/${req.file.filename}`
-                : currentVisitor.photo_path;
+        let photoPath =
+            currentVisitor.photo_path;
+
+
+        if (req.file) {
+
+            const uploadedPhoto =
+                await uploadVisitorPhoto(
+                    req.file
+                );
+
+
+            photoPath =
+                uploadedPhoto.secureUrl;
+
+            uploadedPhotoPublicId =
+                uploadedPhoto.publicId;
+
+        }
 
 
         // =====================================================
@@ -1886,6 +1949,9 @@ const updateVisitor = async (req, res) => {
         );
 
 
+        uploadedPhotoPublicId = null;
+
+
         // =====================================================
         // RETURN UPDATED VISITOR
         // =====================================================
@@ -1938,6 +2004,28 @@ const updateVisitor = async (req, res) => {
                 console.error(
                     "Update visitor rollback error:",
                     rollbackError
+                );
+
+            }
+
+        }
+
+
+        if (uploadedPhotoPublicId) {
+
+            try {
+
+                await deleteVisitorPhoto(
+                    uploadedPhotoPublicId
+                );
+
+            }
+
+            catch (cleanupError) {
+
+                console.error(
+                    "Cloudinary photo cleanup error:",
+                    cleanupError
                 );
 
             }
