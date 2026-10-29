@@ -4,12 +4,16 @@ on:
   pull_request:
     paths:
       - "backend/**"
+      - "package.json"
+      - "package-lock.json"
       - ".github/workflows/backend.yml"
   push:
     branches:
       - main
     paths:
       - "backend/**"
+      - "package.json"
+      - "package-lock.json"
       - ".github/workflows/backend.yml"
   workflow_dispatch:
 

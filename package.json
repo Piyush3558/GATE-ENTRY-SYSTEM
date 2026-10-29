@@ -1,0 +1,12 @@
+{
+  "name": "gate-entry-system",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm ci --prefix backend",
+    "start": "npm start --prefix backend"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
