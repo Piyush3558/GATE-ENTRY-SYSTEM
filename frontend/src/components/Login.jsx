@@ -566,7 +566,7 @@ function Login() {
                     <div className="login-field">
 
                         <label htmlFor="loginId">
-                            Username or Official Email
+                            Username, Employee ID or Official Email
                         </label>
 
 
@@ -580,7 +580,7 @@ function Login() {
                             onChange={
                                 handleLoginIdChange
                             }
-                            placeholder="Enter username or email"
+                            placeholder="Enter username, employee ID or email"
                             autoComplete="off"
                             autoCorrect="off"
                             spellCheck={false}
@@ -592,7 +592,7 @@ function Login() {
 
 
                         <small>
-                            Officials: type your email name and then @
+                            Employees: use your employee ID or official email
                         </small>
 
                     </div>

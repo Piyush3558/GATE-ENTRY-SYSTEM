@@ -1,0 +1,165 @@
+.account-menu {
+    position: relative;
+    z-index: 1200;
+}
+
+.account-menu-trigger {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 4px 8px 4px 4px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background: transparent;
+    color: #344054;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.account-menu-trigger:hover,
+.account-menu-trigger[aria-expanded="true"] {
+    border-color: #dbe4f0;
+    background: #f8fafc;
+}
+
+.account-menu-trigger:focus-visible,
+.account-menu-logout:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.25);
+    outline-offset: 2px;
+}
+
+.account-menu-avatar {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 36px;
+    border-radius: 50%;
+    background: #eaf2ff;
+    color: #1d4ed8;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.account-menu-trigger-text {
+    min-width: 0;
+}
+
+.account-menu-trigger-text strong,
+.account-menu-trigger-text span {
+    display: block;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.account-menu-trigger-text strong {
+    font-size: 12px;
+}
+
+.account-menu-trigger-text span {
+    margin-top: 2px;
+    color: #667085;
+    font-size: 10px;
+}
+
+.account-menu-chevron {
+    color: #98a2b3;
+    font-size: 12px;
+}
+
+.account-menu-panel {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 220px;
+    overflow: hidden;
+    border: 1px solid #e4e7ec;
+    border-radius: 13px;
+    background: white;
+    box-shadow: 0 16px 38px rgba(15, 23, 42, 0.18);
+}
+
+.account-menu-identity {
+    padding: 14px 15px 12px;
+    border-bottom: 1px solid #eef1f5;
+}
+
+.account-menu-identity strong,
+.account-menu-identity span {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.account-menu-identity strong {
+    color: #101828;
+    font-size: 13px;
+}
+
+.account-menu-identity span {
+    margin-top: 3px;
+    color: #667085;
+    font-size: 11px;
+}
+
+.account-menu-logout {
+    width: calc(100% - 16px);
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin: 8px;
+    padding: 0 11px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: #b42318;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.account-menu-logout:hover {
+    background: #fff1f0;
+}
+
+@media (max-width: 768px) {
+    .account-menu-trigger {
+        min-width: 48px;
+        min-height: 48px;
+        justify-content: center;
+        padding: 5px;
+        border-color: #e4e7ec;
+        background: white;
+        box-shadow: 0 3px 10px rgba(16, 24, 40, 0.08);
+    }
+
+    .account-menu-avatar {
+        width: 36px;
+        height: 36px;
+    }
+
+    .account-menu-trigger-text,
+    .account-menu-chevron {
+        display: none;
+    }
+
+    .account-menu-panel {
+        position: fixed;
+        top: calc(66px + env(safe-area-inset-top));
+        right: 12px;
+        width: min(260px, calc(100vw - 24px));
+    }
+
+    .account-menu-logout {
+        min-height: 48px;
+        font-size: 14px;
+    }
+}

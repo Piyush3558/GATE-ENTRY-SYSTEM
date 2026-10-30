@@ -780,7 +780,7 @@
 
 .admin-table-container table {
     width: 100%;
-    min-width: 1450px;
+    min-width: 720px;
 
     border-collapse: collapse;
 }

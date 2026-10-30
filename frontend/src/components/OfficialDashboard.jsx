@@ -9,6 +9,7 @@ import {
 } from "react-router-dom";
 
 import api from "../services/api";
+import AccountMenu from "./AccountMenu";
 
 import "./OfficialDashboard.css";
 
@@ -732,53 +733,21 @@ function OfficialDashboard() {
 </div>
 
 
-                <div className="official-profile">
-
-                    <div className="official-profile-text">
-
-                        <strong>
-                            {
-                                official?.name ||
-                                official?.employee_name ||
-                                "Official"
-                            }
-                        </strong>
-
-                        <span>
-                            {
-                                official?.department_name ||
-official?.unit ||
-official?.email ||
-"Official User"
-                            }
-                        </span>
-
-                    </div>
-
-
-                    <div className="official-avatar">
-
-                        {
-                            (
-                                official?.employee_name ||
-                                "O"
-                            )
-                                .charAt(0)
-                                .toUpperCase()
-                        }
-
-                    </div>
-
-
-                    <button
-                        type="button"
-                        className="official-logout-btn"
-                        onClick={logout}
-                    >
-                        Logout
-                    </button>
-
-                </div>
+                <AccountMenu
+                    name={
+                        official?.name ||
+                        official?.employee_name ||
+                        "Official"
+                    }
+                    role={
+                        official?.role ||
+                        official?.department_name ||
+                        official?.unit ||
+                        "Employee"
+                    }
+                    onLogout={logout}
+                    className="official-account-menu"
+                />
 
             </header>
 
