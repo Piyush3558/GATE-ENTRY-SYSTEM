@@ -574,8 +574,11 @@ if (
                         ON d.id =
                             e.department_id
 
-                    WHERE LOWER(oa.email) =
-                        LOWER($1)
+                    WHERE
+                        LOWER(oa.email) =
+                            LOWER($1)
+                        OR LOWER(e.employee_code) =
+                            LOWER($1)
 
                     LIMIT 1
                 `,
