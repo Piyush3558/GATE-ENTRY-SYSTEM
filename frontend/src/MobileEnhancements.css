@@ -534,19 +534,18 @@
     .official-dashboard-header {
         position: sticky;
         top: 0;
-        min-height: calc(64px + env(safe-area-inset-top));
-        padding: calc(8px + env(safe-area-inset-top)) 14px 8px;
+        min-height: calc(62px + env(safe-area-inset-top));
+        padding: env(safe-area-inset-top) 10px 0;
     }
 
     .official-company-logo {
-        width: 76px !important;
-        height: 44px !important;
-        min-width: 76px !important;
-        max-width: 76px !important;
-        flex-basis: 76px !important;
+        width: 58px !important;
+        height: 40px !important;
+        min-width: 58px !important;
+        max-width: 58px !important;
+        flex-basis: 58px !important;
     }
 
-    .official-sidebar-brand-text span,
     .official-account-menu .account-menu-trigger {
         box-shadow: none;
     }
