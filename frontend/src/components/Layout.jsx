@@ -11,6 +11,7 @@ import {
 import Dashboard from "./Dashboard";
 import Visitors from "./Visitors";
 import AccountMenu from "./AccountMenu";
+import { triggerLightHaptic } from "../utils/haptics";
 
 import "./Layout.css";
 
@@ -333,16 +334,35 @@ function Layout() {
                     <button
                         type="button"
                         className="mobile-menu-button"
-                        onClick={() =>
+                        onClick={() => {
+
+                            triggerLightHaptic();
+
                             setMobileMenuOpen(
                                 previous =>
                                     !previous
-                            )
-                        }
+                            );
+
+                        }}
                         aria-label="Open navigation menu"
                     >
-                        ☰
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 7h16" />
+                            <path d="M4 12h16" />
+                            <path d="M4 17h16" />
+                        </svg>
                     </button>
+
+                    <div className="security-mobile-brand">
+                        <img
+                            src="/images/ufi-logo.png"
+                            alt="UFI Filters and SOFIMA Filter"
+                        />
+                        <div>
+                            <strong>Gate Entry</strong>
+                            <span>Security</span>
+                        </div>
+                    </div>
 
 
                     <div className="header-title">
@@ -399,6 +419,7 @@ function Layout() {
                                 "Security"
                             }
                             onLogout={handleLogout}
+                            useProfileIcon
                         />
 
                     </div>

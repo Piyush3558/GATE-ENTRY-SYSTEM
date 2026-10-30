@@ -10,6 +10,7 @@ import {
 
 import "./AdminLayout.css";
 import AccountMenu from "./AccountMenu";
+import { triggerLightHaptic } from "../utils/haptics";
 
 
 function AdminLayout({ children }) {
@@ -337,38 +338,67 @@ function AdminLayout({ children }) {
 
             <div className="admin-layout-main">
 
-                <button
-                    type="button"
-                    className="admin-mobile-menu-button"
-                    onClick={() => {
+                <header className="admin-mobile-header">
 
-                        setMobileMenuOpen(
-                            previous =>
-                                !previous
-                        );
+                    <button
+                        type="button"
+                        className="admin-mobile-menu-button"
+                        onClick={() => {
 
-                    }}
-                    aria-label="Open Admin menu"
-                >
-                    ☰
-                </button>
+                            triggerLightHaptic();
+
+                            setMobileMenuOpen(
+                                previous =>
+                                    !previous
+                            );
+
+                        }}
+                        aria-label="Open Admin menu"
+                    >
+                        <svg
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                        >
+                            <path d="M4 7h16" />
+                            <path d="M4 12h16" />
+                            <path d="M4 17h16" />
+                        </svg>
+                    </button>
 
 
-                <div className="admin-mobile-account-menu">
+                    <div className="admin-mobile-brand">
 
-                    <AccountMenu
-                        name={
-                            adminUser?.name ||
-                            "Administrator"
-                        }
-                        role={
-                            adminUser?.role ||
-                            "Administrator"
-                        }
-                        onLogout={handleLogout}
-                    />
+                        <img
+                            src="/images/ufi-logo.png"
+                            alt="UFI Filters and SOFIMA Filter"
+                        />
 
-                </div>
+                        <div>
+                            <strong>Gate Entry</strong>
+                            <span>Administration</span>
+                        </div>
+
+                    </div>
+
+
+                    <div className="admin-mobile-account-menu">
+
+                        <AccountMenu
+                            name={
+                                adminUser?.name ||
+                                "Administrator"
+                            }
+                            role={
+                                adminUser?.role ||
+                                "Administrator"
+                            }
+                            onLogout={handleLogout}
+                            useProfileIcon
+                        />
+
+                    </div>
+
+                </header>
 
 
                 {children}

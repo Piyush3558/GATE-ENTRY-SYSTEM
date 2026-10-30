@@ -709,6 +709,11 @@ function OfficialDashboard() {
 
             <header className="official-dashboard-header">
 
+                <span
+                    className="official-mobile-header-spacer"
+                    aria-hidden="true"
+                />
+
                 <div className="official-sidebar-brand">
 
     <img
@@ -747,6 +752,7 @@ function OfficialDashboard() {
                     }
                     onLogout={logout}
                     className="official-account-menu"
+                    useProfileIcon
                 />
 
             </header>

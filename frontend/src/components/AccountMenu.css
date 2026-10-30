@@ -44,6 +44,16 @@
     font-weight: 800;
 }
 
+.account-menu-avatar svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
 .account-menu-trigger-text {
     min-width: 0;
 }
@@ -153,7 +163,7 @@
 
     .account-menu-panel {
         position: fixed;
-        top: calc(66px + env(safe-area-inset-top));
+        top: calc(62px + env(safe-area-inset-top));
         right: 12px;
         width: min(260px, calc(100vw - 24px));
     }

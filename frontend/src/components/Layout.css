@@ -966,3 +966,132 @@
     }
 
 }
+
+
+/* Unified mobile app bar */
+
+.security-mobile-brand {
+    display: none;
+}
+
+
+.mobile-menu-button svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+}
+
+
+@media (max-width: 850px) {
+
+    .top-header {
+        width: 100%;
+        min-height: calc(62px + env(safe-area-inset-top));
+        display: grid;
+        grid-template-columns: 44px minmax(0, 1fr) 44px;
+        align-items: center;
+        gap: 8px;
+        padding: env(safe-area-inset-top) 10px 0;
+        background: #ffffff;
+        box-shadow: 0 2px 8px rgba(16, 24, 40, 0.06);
+    }
+
+
+    .mobile-menu-button {
+        position: static;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: 0;
+        border-radius: 9px;
+        background: transparent;
+        box-shadow: none;
+    }
+
+
+    .mobile-menu-button:hover,
+    .mobile-menu-button:focus-visible {
+        background: #f2f4f7;
+    }
+
+
+    .security-mobile-brand {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+
+    .security-mobile-brand img {
+        width: 58px;
+        height: 40px;
+        display: block;
+        flex: 0 0 58px;
+        object-fit: contain;
+    }
+
+
+    .security-mobile-brand strong,
+    .security-mobile-brand span {
+        display: block;
+        white-space: nowrap;
+    }
+
+
+    .security-mobile-brand strong {
+        color: #101828;
+        font-size: 13px;
+        line-height: 1.15;
+    }
+
+
+    .security-mobile-brand span {
+        margin-top: 3px;
+        color: #667085;
+        font-size: 9px;
+    }
+
+
+    .header-title,
+    .header-date {
+        display: none;
+    }
+
+
+    .header-right {
+        display: block;
+        justify-self: end;
+    }
+
+
+    .top-header .account-menu-trigger {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0;
+        border: 0;
+        border-radius: 9px;
+        background: transparent;
+        box-shadow: none;
+    }
+
+
+    .top-header .account-menu-trigger:hover,
+    .top-header .account-menu-trigger[aria-expanded="true"] {
+        background: #f2f4f7;
+    }
+
+
+    .top-header .account-menu-avatar {
+        width: 44px;
+        height: 44px;
+        flex-basis: 44px;
+        background: transparent;
+        color: #344054;
+    }
+
+}
