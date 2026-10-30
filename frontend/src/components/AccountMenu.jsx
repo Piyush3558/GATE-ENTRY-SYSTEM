@@ -11,7 +11,8 @@ function AccountMenu({
     name,
     role,
     onLogout,
-    className = ""
+    className = "",
+    useProfileIcon = false
 }) {
 
     const [open, setOpen] =
@@ -118,7 +119,21 @@ function AccountMenu({
             >
 
                 <span className="account-menu-avatar">
-                    {initial}
+                    {useProfileIcon ? (
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"
+                            />
+                            <path
+                                d="M4.75 20a7.25 7.25 0 0 1 14.5 0"
+                            />
+                        </svg>
+
+                    ) : initial}
                 </span>
 
                 <span className="account-menu-trigger-text">
