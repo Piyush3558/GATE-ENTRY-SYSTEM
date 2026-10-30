@@ -1,3 +1,13 @@
+import {
+    Capacitor
+} from "@capacitor/core";
+
+import {
+    Haptics,
+    ImpactStyle
+} from "@capacitor/haptics";
+
+
 const vibrateOnWeb = () => {
 
     if (
@@ -12,33 +22,14 @@ const vibrateOnWeb = () => {
 
 export const triggerLightHaptic = () => {
 
-    try {
+    if (Capacitor.isNativePlatform()) {
 
-        const nativeHaptics =
-            globalThis.Capacitor
-                ?.Plugins
-                ?.Haptics;
+        Haptics.impact({
+            style: ImpactStyle.Light
+        }).catch(vibrateOnWeb);
 
+        return;
 
-        if (
-            nativeHaptics &&
-            typeof nativeHaptics.impact === "function"
-        ) {
-
-            Promise.resolve(
-                nativeHaptics.impact({
-                    style: "LIGHT"
-                })
-            ).catch(vibrateOnWeb);
-
-            return;
-
-        }
-
-    }
-
-    catch {
-        // Fall through to the browser vibration API.
     }
 
 

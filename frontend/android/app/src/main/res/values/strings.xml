@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Gate Entry</string>
+    <string name="title_activity_main">Gate Entry</string>
+    <string name="package_name">com.ufifilters.gateentry</string>
+    <string name="custom_url_scheme">com.ufifilters.gateentry</string>
+</resources>
