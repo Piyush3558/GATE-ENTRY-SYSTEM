@@ -5,6 +5,7 @@ import {
 } from "react";
 
 import "./AccountMenu.css";
+import { triggerLightHaptic } from "../utils/haptics";
 
 
 function AccountMenu({
@@ -110,9 +111,12 @@ function AccountMenu({
             <button
                 type="button"
                 className="account-menu-trigger"
-                onClick={() =>
-                    setOpen(previous => !previous)
-                }
+                onClick={() => {
+
+                    triggerLightHaptic();
+                    setOpen(previous => !previous);
+
+                }}
                 aria-label={`Open account menu for ${displayName}`}
                 aria-expanded={open}
                 aria-haspopup="menu"

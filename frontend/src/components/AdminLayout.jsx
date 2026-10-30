@@ -10,6 +10,7 @@ import {
 
 import "./AdminLayout.css";
 import AccountMenu from "./AccountMenu";
+import { triggerLightHaptic } from "../utils/haptics";
 
 
 function AdminLayout({ children }) {
@@ -343,6 +344,8 @@ function AdminLayout({ children }) {
                         type="button"
                         className="admin-mobile-menu-button"
                         onClick={() => {
+
+                            triggerLightHaptic();
 
                             setMobileMenuOpen(
                                 previous =>

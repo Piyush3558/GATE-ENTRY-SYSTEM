@@ -11,6 +11,7 @@ import {
 import Dashboard from "./Dashboard";
 import Visitors from "./Visitors";
 import AccountMenu from "./AccountMenu";
+import { triggerLightHaptic } from "../utils/haptics";
 
 import "./Layout.css";
 
@@ -333,12 +334,16 @@ function Layout() {
                     <button
                         type="button"
                         className="mobile-menu-button"
-                        onClick={() =>
+                        onClick={() => {
+
+                            triggerLightHaptic();
+
                             setMobileMenuOpen(
                                 previous =>
                                     !previous
-                            )
-                        }
+                            );
+
+                        }}
                         aria-label="Open navigation menu"
                     >
                         <svg viewBox="0 0 24 24" aria-hidden="true">
