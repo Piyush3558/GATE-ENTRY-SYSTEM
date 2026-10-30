@@ -377,6 +377,11 @@
 }
 
 
+.admin-mobile-account-menu {
+    display: none;
+}
+
+
 .admin-sidebar-overlay {
     display: none;
 }
@@ -412,6 +417,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+
+    .admin-mobile-account-menu {
+        position: fixed;
+        top: 13px;
+        right: 13px;
+        z-index: 1100;
+        display: block;
     }
 
 

@@ -1483,17 +1483,9 @@ function AdminDashboard() {
 
                                     <tr>
                                         <th>Photo</th>
-                                        <th>Date</th>
                                         <th>Visitor</th>
                                         <th>Contact</th>
-                                        <th>Purpose</th>
-                                        <th>Department</th>
-                                        <th>Official</th>
-                                        <th>Approval</th>
-                                        <th>Entry</th>
-                                        <th>Time In</th>
-                                        <th>Time Out</th>
-                                        {/*<th>Details</th>*/}
+                                        <th>Details</th>
                                     </tr>
 
                                 </thead>
@@ -1535,22 +1527,11 @@ function AdminDashboard() {
                                                 </td>
 
                                                 <td>
-                                                    {
-                                                        formatDate(
-                                                            visitor.visit_date
-                                                        )
-                                                    }
-                                                </td>
-
-                                                <td>
                                                     <strong>
                                                         {
                                                             visitor.visitor_name
                                                         }
                                                     </strong>
-                                                    <span>
-                                                        ID #{visitor.id}
-                                                    </span>
                                                 </td>
 
                                                 <td>
@@ -1560,92 +1541,21 @@ function AdminDashboard() {
                                                             "-"
                                                         }
                                                     </strong>
-                                                    <span>
-                                                        {
-                                                            visitor.address ||
-                                                            "-"
-                                                        }
-                                                    </span>
                                                 </td>
 
                                                 <td>
-                                                    {
-                                                        visitor.purpose_of_visit ||
-                                                        "-"
-                                                    }
-                                                </td>
-
-                                                <td>
-                                                    {
-                                                        visitor.department_name ||
-                                                        "-"
-                                                    }
-                                                </td>
-
-                                                <td>
-                                                    <strong>
-                                                        {
-                                                            visitor.official_name ||
-                                                            visitor.official_to_visit ||
-                                                            "-"
-                                                        }
-                                                    </strong>
-                                                    <span>
-                                                        {
-                                                            visitor.official_code ||
-                                                            "-"
-                                                        }
-                                                    </span>
-                                                </td>
-
-                                                <td>
-                                                    <span
-                                                        className={`admin-status approval-${visitor.approval_status?.toLowerCase()}`}
-                                                    >
-                                                        {
-                                                            visitor.approval_status ||
-                                                            "PENDING"
-                                                        }
-                                                    </span>
-                                                </td>
-
-                                                <td>
-                                                    <span
-                                                        className={`admin-status entry-${visitor.entry_status?.toLowerCase()}`}
-                                                    >
-                                                        {
-                                                            visitor.entry_status ||
-                                                            "WAITING"
-                                                        }
-                                                    </span>
-                                                </td>
-
-                                                <td>
-                                                    {
-                                                        visitor.time_in ||
-                                                        "-"
-                                                    }
-                                                </td>
-
-                                                <td>
-                                                    {
-                                                        visitor.time_out ||
-                                                        "-"
-                                                    }
-                                                </td>
-
-                                               {/*} <td>
                                                     <button
                                                         type="button"
+                                                        className="admin-view-details-button"
                                                         onClick={() =>
                                                             openVisitorDetails(
                                                                 visitor.id
                                                             )
                                                         }
                                                     >
-                                                        View
+                                                        View details
                                                     </button>
-                                                </td>*/}
+                                                </td>
 
                                             </tr>
 

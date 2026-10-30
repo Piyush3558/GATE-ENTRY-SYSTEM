@@ -1,4 +1,5 @@
 import {
+    useMemo,
     useState
 } from "react";
 
@@ -8,6 +9,7 @@ import {
 } from "react-router-dom";
 
 import "./AdminLayout.css";
+import AccountMenu from "./AccountMenu";
 
 
 function AdminLayout({ children }) {
@@ -22,6 +24,38 @@ function AdminLayout({ children }) {
 
     const [mobileMenuOpen, setMobileMenuOpen] =
         useState(false);
+
+
+    const adminUser =
+        useMemo(() => {
+
+            try {
+
+                const savedUser =
+                    localStorage.getItem(
+                        "authUser"
+                    );
+
+
+                return savedUser
+                    ? JSON.parse(savedUser)
+                    : null;
+
+            }
+
+            catch (error) {
+
+                console.error(
+                    "Unable to read Admin session:",
+                    error
+                );
+
+
+                return null;
+
+            }
+
+        }, []);
 
 
     const isActive = path => {
@@ -318,6 +352,23 @@ function AdminLayout({ children }) {
                 >
                     ☰
                 </button>
+
+
+                <div className="admin-mobile-account-menu">
+
+                    <AccountMenu
+                        name={
+                            adminUser?.name ||
+                            "Administrator"
+                        }
+                        role={
+                            adminUser?.role ||
+                            "Administrator"
+                        }
+                        onLogout={handleLogout}
+                    />
+
+                </div>
 
 
                 {children}

@@ -10,6 +10,7 @@ import {
 
 import Dashboard from "./Dashboard";
 import Visitors from "./Visitors";
+import AccountMenu from "./AccountMenu";
 
 import "./Layout.css";
 
@@ -388,47 +389,17 @@ function Layout() {
                         </div>
 
 
-                        <div className="header-user">
-
-                            <div className="header-avatar">
-
-                                {
-                                    (
-                                        securityUser?.name ||
-                                        "S"
-                                    )
-                                        .charAt(0)
-                                        .toUpperCase()
-                                }
-
-                            </div>
-
-
-                            <div className="header-user-info">
-
-                                <strong>
-                                    {
-                                        securityUser?.name ||
-                                        "Security Guard"
-                                    }
-                                </strong>
-
-                                <span>
-                                    Security
-                                </span>
-
-                            </div>
-
-                        </div>
-
-
-                        <button
-                            type="button"
-                            className="header-logout-button"
-                            onClick={handleLogout}
-                        >
-                            Logout
-                        </button>
+                        <AccountMenu
+                            name={
+                                securityUser?.name ||
+                                "Security Guard"
+                            }
+                            role={
+                                securityUser?.role ||
+                                "Security"
+                            }
+                            onLogout={handleLogout}
+                        />
 
                     </div>
 
