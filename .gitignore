@@ -28,6 +28,18 @@ build/
 frontend/dist/
 backend/dist/
 
+# Android packages and local release artifacts
+releases/
+*.apk
+*.aab
+*.ap_
+
+# Android signing material
+*.jks
+*.keystore
+*.p12
+keystore.properties
+
 # ==============================
 # Visitor Uploads / Photos
 # ==============================
